@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ -f $1/.buildcache ]; then
-  echo "Cache"
+  echo "Cache - load"
   exit 0
 else
   echo "no .buildcache file"

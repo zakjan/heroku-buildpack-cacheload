@@ -3,6 +3,11 @@
 set -e # fail fast
 
 
+indent() {
+  sed -u 's/^/       /'
+}
+
+
 BUILD_DIR=$1
 CACHE_DIR=$2
 
@@ -15,20 +20,23 @@ for FILENAME in `cat ${BUILD_DIR}/.buildcache`; do
     continue
   fi
 
-  SRC=${CACHE_DIR}/${FILENAME}
+  echo "${FILENAME}" | indent
+
+  SRC=${CACHE_DIR}/buildcache/${FILENAME}
   DEST=${BUILD_DIR}/${FILENAME}
 
   # skip non-existing files
   if ! [ -e ${SRC} ]; then
+    echo "- not found" | indent
     continue
   fi
 
-  # create directory structure
+  # create parent directory structure
   mkdir -p ${DEST}
   rm -r ${DEST}
 
   # copy files from cache
   cp -r ${SRC} ${DEST}
 
-  echo "       ${FILENAME}"
+  echo "- ok, copied" | indent
 done

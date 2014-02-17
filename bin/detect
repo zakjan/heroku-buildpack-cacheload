@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ -f $1/.buildcache ]; then
+  echo "Cache"
+  exit 0
+else
+  echo "no .buildcache file"
+  exit 1
+fi
+

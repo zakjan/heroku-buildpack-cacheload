@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -e # fail fast
+
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+
+echo "=====> Restoring files from cache"
+
+for FILENAME in `cat ${BUILD_DIR}/.buildcache`; do
+  if [ -n ${FILENAME} && -e ${CACHE_DIR}/${FILENAME} ]; then
+    echo "       ${FILENAME}"
+    cp -r ${CACHE_DIR}/${DIR} ${BUILD_DIR}/
+  fi
+done

@@ -10,8 +10,25 @@ CACHE_DIR=$2
 echo "=====> Restoring files from cache"
 
 for FILENAME in `cat ${BUILD_DIR}/.buildcache`; do
-  if [[ -n ${FILENAME} && -e ${CACHE_DIR}/${FILENAME} ]]; then
-    echo "       ${FILENAME}"
-    cp -r ${CACHE_DIR}/${DIR} ${BUILD_DIR}/
+  # skip empty lines
+  if ! [ ${FILENAME} ]; then
+    continue
   fi
+
+  SRC=${CACHE_DIR}/${FILENAME}
+  DEST=${BUILD_DIR}/${FILENAME}
+
+  # skip non-existing files
+  if ! [ -e ${SRC} ]; then
+    continue
+  fi
+
+  # create directory structure
+  mkdir -p ${DEST}
+  rm -r ${DEST}
+
+  # copy files from cache
+  cp -r ${SRC} ${DEST}
+
+  echo "       ${FILENAME}"
 done

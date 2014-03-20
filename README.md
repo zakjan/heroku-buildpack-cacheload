@@ -12,9 +12,9 @@ You should use this, if your project is pulling a lot of dependencies during eac
 
 ```
 https://github.com/heroku/heroku-buildpack-nodejs
-https://github.com/zakjan/heroku-buildpack-cacheload#1.0.0
+https://github.com/zakjan/heroku-buildpack-cacheload#1.0.1
 https://github.com/kr/heroku-buildpack-inline
-https://github.com/zakjan/heroku-buildpack-cachesave#1.0.0
+https://github.com/zakjan/heroku-buildpack-cachesave#1.0.1
 ```
 
 `.buildcache`:

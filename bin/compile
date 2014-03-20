@@ -14,29 +14,26 @@ CACHE_DIR=$2
 
 echo "=====> Restoring files from cache"
 
-for FILENAME in `cat ${BUILD_DIR}/.buildcache`; do
-  # skip empty lines
-  if ! [ ${FILENAME} ]; then
-    continue
-  fi
-
-  echo "${FILENAME}" | indent
+for FILENAME in $(cat ${BUILD_DIR}/.buildcache | sed '/^$/d'); do
+  echo -n "${FILENAME}" | indent
 
   SRC=${CACHE_DIR}/buildcache/${FILENAME}
   DEST=${BUILD_DIR}/${FILENAME}
 
   # skip non-existing files
   if ! [ -e ${SRC} ]; then
-    echo "- not found" | indent
+    echo " ✗ - not found"
     continue
   fi
 
   # create parent directory structure
-  mkdir -p ${DEST}
+  mkdir -p $(dirname ${DEST})
+
+  # delete old files
   rm -r ${DEST}
 
   # copy files from cache
   cp -r ${SRC} ${DEST}
 
-  echo "- ok, copied" | indent
+  echo " ✓"
 done
